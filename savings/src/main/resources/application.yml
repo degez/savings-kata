@@ -1,0 +1,41 @@
+#server:
+#  port: ${SERVER_PORT_A}
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+#    url: jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: postgres
+
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:mydb
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+#  sql:
+#    init:
+#      mode: always
+logging:
+  level:
+    root: warn
+    sun:
+      rmi:
+        transport:
+          tcp: error
+    org.springframework: info
+    org.hibernate:
+      type:
+        descriptor:
+          sql:
+            BasicBinder: debug
+      SQL: debug

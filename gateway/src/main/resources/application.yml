@@ -1,0 +1,53 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  server:
+    port: ${MANAGEMENT_PORT:8000}
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    redis:
+      enabled: false
+
+info:
+  build:
+    name: cloud-gateway
+spring:
+  application:
+    name: internal-api-gateway
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      httpclient:
+        response-timeout: 5s
+      routes:
+        - id: savings-service-a
+          uri: http://host.docker.internal:8081
+          predicates:
+            - Path=/savings/a/{segment}
+          filters:
+            - SetPath=/{segment}
+        - id: savings-service-b
+          uri: http://host.docker.internal:8082
+          predicates:
+            - Path=/savings/b/{segment}
+          filters:
+            - SetPath=/{segment}
+
+
+debug: ${DEBUG_MODE:false}
+
+logging:
+  level:
+    com.kg: ${LOG_LEVEL:INFO}
+    reactor.core: ${LOG_LEVEL_REACTOR_CORE:ERROR}
+    reactor.netty: ${LOG_LEVEL_REACTOR_NETY:ERROR}
