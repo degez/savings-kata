@@ -12,7 +12,7 @@ On project root directory, on folder location `savings-kata`, run the commands b
  `mvn clean install`
 
 2. Docker build for savings and gateway services 
-   1. `service:docker build -t savings-docker.jar -f savings/Dockerfile .`
+   1. `docker build -t savings-docker.jar -f savings/Dockerfile .`
    2. `docker build -t gateway-docker.jar -f gateway/Dockerfile .`
 3. run our images: 
    1. `docker-compose up -d`
@@ -80,6 +80,7 @@ Response:
 
 Response Codes:  
 200 OK  
+400 Bad request  
 404 Not found  
 422 Unprocessable Entity  
 504 Gateway Timeout  
@@ -110,6 +111,7 @@ Response:
 
 Response Codes:  
 200 OK  
+400 Bad request  
 404 Not found  
 422 Unprocessable Entity  
 504 Gateway Timeout  
